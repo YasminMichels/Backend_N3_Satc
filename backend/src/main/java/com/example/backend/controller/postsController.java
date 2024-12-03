@@ -63,10 +63,11 @@ public class postsController {
     @PutMapping("/editpost")
     public ResponseEntity<postCad> editpost( @RequestBody postCad post
             ){
-        //FUNCAO DESATIVADA 22/11/2024
-//         if (post.getUsuario().getTipo_usuario() == 2){
-//             post.setStatus(2);
-//         }
+
+         if (post.getUsuario().getTipo_usuario() == 2){
+             post.setStatus(2);
+        }
+
         postCad postatt = postcadRp.save(post);
         return ResponseEntity.ok(postatt);
     }
@@ -74,16 +75,15 @@ public class postsController {
     @DeleteMapping("/deletepost/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable Integer id) {
          postcadRp.deleteById(id);
-        return ResponseEntity.noContent().build();  // Resposta correta com código HTTP 204
+        return ResponseEntity.noContent().build();
     }
 
 
-    //FUNCAO DESATIVADA 22/11/2024
-//    @PutMapping("/confirm/post/{id}")
-//        public ResponseEntity<Optional<postCad>> confirmaPost(@PathVariable int id){
-//        Optional<postCad> post = postcadRp.findById(id);
-//        post.get().setStatus(2);
-//        return ResponseEntity.ok(post);
-//        }
+    @PutMapping("/confirm/post/{id}")
+        public ResponseEntity<Optional<postCad>> confirmaPost(@PathVariable int id){
+        Optional<postCad> post = postcadRp.findById(id);
+        post.get().setStatus(2);
+        return ResponseEntity.ok(post);
+        }
 
 }
